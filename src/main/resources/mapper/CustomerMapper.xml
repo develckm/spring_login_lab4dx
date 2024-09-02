@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.lab4dx.customer_login.mapper.CustomerMapper">
+    <insert id="insert" parameterType="com.lab4dx.customer_login.dto.Customer">
+        INSERT INTO CUSTOMER (CUSTOMER_ID, CUSTOMER_NAME, CUSTOMER_EMAIL, CUSTOMER_PHONE)
+            VALUES (#{customer_id},#{customer_name},#{customer_email},#{customer_phone})
+    </insert>
+    <select id="findByIdAndPhone" resultType="com.lab4dx.customer_login.dto.Customer">
+        SELECT * FROM CUSTOMER WHERE CUSTOMER_ID=#{id} AND CUSTOMER_PHONE=#{phone}
+    </select>
+    <select id="findById" resultType="com.lab4dx.customer_login.dto.Customer">
+        SELECT * FROM CUSTOMER WHERE CUSTOMER_ID=#{id}
+    </select>
+</mapper>
