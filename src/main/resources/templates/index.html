@@ -9,9 +9,9 @@
 </head>
 <body>
 <header>
-  <nav class="navbar navbar-expand-sm navbar-dark bg-dark">
+  <nav class="navbar navbar-expand-sm navbar-dark bg-dark px-3">
     <a class="navbar-brand" href="/">Home</a>
-    <button class="navbar-toggler d-lg-none" type="button" data-toggle="collapse" data-target="#collapsibleNavId"
+    <button class="navbar-toggler d-lg-none" type="button" data-bs-toggle="collapse" data-bs-target="#collapsibleNavId"
             aria-controls="collapsibleNavId"
             aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
@@ -25,8 +25,10 @@
           <a class="nav-link" href="/login.do">로그인</a>
         </li>
       </ul>
-      <div class="mt-2 text-light">
-        ~~님 로그인 중
+      <div class="mt-2 text-light" th:if="${session.customer!=null}">
+        <strong th:text="${session.customer.customer_name}"></strong>
+        님 로그인 중
+        / <a class="link-light" href="/customer/logout.do">로그아웃</a>
       </div>
     </div>
   </nav>
@@ -41,5 +43,8 @@
     <a href="/customer/login.do">로그인</a>
   </h2>
 </div>
+<script th:if="${msg!=null}">
+  alert("[[${msg}]]");
+</script>
 </body>
 </html>

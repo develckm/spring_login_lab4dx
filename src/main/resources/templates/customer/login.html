@@ -10,6 +10,27 @@
 <body>
 <div class="container">
     <h1>로그인</h1>
+    <hr>
+    <form action="/customer/login.do" method="post">
+        <div class="form-group mb-3">
+            <label for="customer_id">customer_id</label>
+            <input type="text"
+                   class="form-control" name="id" id="customer_id" aria-describedby="helpId" placeholder="">
+        </div>
+        <div class="form-group">
+            <label for="customer_phone">customer_phone</label>
+            <input type="text"
+                   class="form-control" name="phone" id="customer_phone" aria-describedby="helpPhone" placeholder="">
+            <small id="helpPhone" class="form-text text-muted">핸드폰번호가 비밀번호</small>
+        </div>
+        <div class="text-end">
+            <a class="me-3" href="/customer/signup.do">회원가입</a>
+            <button type="submit" class="btn btn-primary">로그인</button>
+        </div>
+    </form>
+<script th:if="${msg!=null}">
+    alert("[[${msg}]]");
+</script>
 </div>
 </body>
 </html>

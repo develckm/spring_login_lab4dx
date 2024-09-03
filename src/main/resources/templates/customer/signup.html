@@ -11,12 +11,16 @@
 <div class="container">
     <h1>회원가입</h1>
     <hr>
-    <form action="/customer/signup.do" method="post">
+    <form name="signupForm" action="/customer/signup.do" method="post">
         <div class="form-group">
             <label for="customer_id">customer_id</label>
-            <input type="text"
-                   class="form-control" name="customer_id" id="customer_id" aria-describedby="helpId" placeholder="">
-            <small id="helpId" class="form-text text-muted">중복체크하세요</small>
+            <div class="input-group">
+                <input type="text"
+                       class="form-control" name="customer_id" id="customer_id" aria-describedby="helpId" placeholder="">
+                <button id="checkIdBtn" type="button" class="btn btn-success">중복체크</button>
+                <small class="valid-feedback">사용할 수 있는 아이디</small>
+                <small class="invalid-feedback">사용 중인 아이디</small>
+            </div>
         </div>
         <div class="form-group">
             <label for="customer_phone">customer_phone</label>
@@ -42,5 +46,52 @@
         </div>
     </form>
 </div>
+<script>
+const checkIdBtn=document.getElementById("checkIdBtn");
+const signupForm=document.forms["signupForm"];
+
+checkIdBtn.onclick=function (e){
+    let idVal=signupForm.customer_id.value;
+    if( idVal!=null && idVal.length>0){
+        let url="/customer/checkId.do?id="+idVal
+        fetch(url)
+            .then((res)=>{return res.json()})
+            .then((obj)=>{
+                console.log(obj)
+                if(obj["checkId"]){
+                    signupForm.customer_id.classList.add("is-valid");
+                    signupForm.customer_id.classList.remove("is-invalid");
+                }else{
+                    signupForm.customer_id.classList.add("is-invalid");
+                    signupForm.customer_id.classList.remove("is-valid");
+
+                }
+            });
+    }else{
+        alert("id 를 입력하세요!");
+    }
+}
+signupForm.onsubmit=function (e) {
+    e.preventDefault();//이벤 막기
+    let idVal=signupForm.customer_id.value;
+    let nameVal=signupForm.customer_name.value;
+    let phoneVal=signupForm.customer_phone.value;
+    let emailVal=signupForm.customer_email.value;
+    if(idVal && nameVal && phoneVal && emailVal){
+        //모두가 null이 아니면
+        let con=confirm("회원가입 하시겠습니까?");
+        if(con)signupForm.submit(); //강제로 이벤트발생
+    }else{
+        alert("빈 입력창을 채우세요~")
+    }
+}
+
+
+
+</script>
+
+<script th:if="${msg!=null}"> //msg 존재할때만 script 를 생성해라
+    alert("[[${msg}]]"); //타임리프 변수 호출 (템플릿엔진이 렌더링)
+</script>
 </body>
 </html>
