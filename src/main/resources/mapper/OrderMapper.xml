@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.lab4dx.customer_login.mapper.OrderMapper">
+    <resultMap id="OrderMap" type="com.lab4dx.customer_login.dto.Order">
+        <id property="order_id" column="ORDER_ID"/>
+        <result property="customer_id" column="CUSTOMER_ID"/>
+        <result property="product_id" column="PRODUCT_ID"/>
+        <result property="quantity" column="QUANTITY"/>
+        <result property="order_date" column="ORDER_DATE"/>
+<!--        <association property="customer"-->
+<!--                     fetchType="lazy"-->
+<!--                     select="com.lab4dx.customer_login.mapper.CustomerMapper.findById"-->
+<!--                     column="customer_id"/>-->
+
+<!--        <association property="product" javaType="com.lab4dx.customer_login.dto.Product">-->
+<!--            <id property="product_id" column="product_id"/>-->
+<!--            <result property="product_name" column="product_name"/>-->
+<!--            <result property="product_price" column="product_price"/>-->
+<!--        </association>-->
+        <association property="product"
+                     fetchType="lazy"
+                     select="com.lab4dx.customer_login.mapper.ProductMapper.findById"
+                     column="product_id"
+        />
+    </resultMap>
+    <select id="findAll" resultMap="OrderMap">
+        SELECT * FROM ORDERS
+    </select>
+<!--    <select id="findAll" resultType="com.lab4dx.customer_login.dto.Order">-->
+<!--        SELECT o.*,-->
+<!--               c.CUSTOMER_ID AS "customer.customer_id",-->
+<!--               c.CUSTOMER_NAME AS "customer.customer_name",-->
+<!--               c.CUSTOMER_PHONE AS "customer.customer_phone",-->
+<!--               c.CUSTOMER_EMAIL AS "customer.customer_email"-->
+<!--        FROM ORDERS o-->
+<!--                 INNER JOIN CUSTOMER c-->
+<!--                            ON o.CUSTOMER_ID = c.CUSTOMER_ID-->
+<!--    </select>-->
+    <select id="findByCustomerId" resultMap="OrderMap">
+        SELECT * FROM ORDERS WHERE CUSTOMER_ID=#{customerId}
+    </select>
+</mapper>

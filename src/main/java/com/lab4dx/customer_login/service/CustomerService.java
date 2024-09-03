@@ -10,6 +10,7 @@ public interface CustomerService {
     //boolean signup(Customer) 회원가입성공시 true,
     //boolean checkId(id) 아이디가 사용가능하면 true
     Customer login(int id, String phone);
+    Customer get(int id);
     boolean signup(Customer customer);
     boolean checkId(int id);
 }

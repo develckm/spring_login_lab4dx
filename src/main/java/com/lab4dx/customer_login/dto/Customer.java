@@ -4,6 +4,8 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
+import java.util.List;
+
 @Getter@Setter@ToString
 public class Customer {
     /*
@@ -16,5 +18,9 @@ public class Customer {
     private String customer_name;
     private String customer_email;
     private String customer_phone;
+
+    //주문 : 유저 = N : 1
+    //유저 : 주문 = 1 : N
+    private List<Order> orders;
 
 }

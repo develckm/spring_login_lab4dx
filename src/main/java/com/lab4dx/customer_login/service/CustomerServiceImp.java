@@ -22,6 +22,11 @@ public class CustomerServiceImp implements CustomerService {
     }
 
     @Override
+    public Customer get(int id) {
+        return customerMapper.findById(id);
+    }
+
+    @Override
     public boolean signup(Customer customer) {
         boolean signup=false;
         int insert=customerMapper.insert(customer);

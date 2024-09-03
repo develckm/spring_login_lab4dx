@@ -1,6 +1,19 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.lab4dx.customer_login.mapper.CustomerMapper">
+    <resultMap id="CustomerMap" type="com.lab4dx.customer_login.dto.Customer">
+        <id property="customer_id" column="customer_id"/>
+        <result property="customer_name" column="customer_name"/>
+        <result property="customer_email" column="customer_email"/>
+        <result property="customer_phone" column="customer_phone"/>
+        <!--1:N으로 조인되는 내역을 조회할 때 Collection -->
+        <collection
+                property="orders"
+                fetchType="lazy"
+                select="com.lab4dx.customer_login.mapper.OrderMapper.findByCustomerId"
+                column="customer_id"
+        />
+    </resultMap>
     <insert id="insert" parameterType="com.lab4dx.customer_login.dto.Customer">
         INSERT INTO CUSTOMER (CUSTOMER_ID, CUSTOMER_NAME, CUSTOMER_EMAIL, CUSTOMER_PHONE)
             VALUES (#{customer_id},#{customer_name},#{customer_email},#{customer_phone})
@@ -8,7 +21,7 @@
     <select id="findByIdAndPhone" resultType="com.lab4dx.customer_login.dto.Customer">
         SELECT * FROM CUSTOMER WHERE CUSTOMER_ID=#{id} AND CUSTOMER_PHONE=#{phone}
     </select>
-    <select id="findById" resultType="com.lab4dx.customer_login.dto.Customer">
+    <select id="findById" resultMap="CustomerMap">
         SELECT * FROM CUSTOMER WHERE CUSTOMER_ID=#{id}
     </select>
 </mapper>

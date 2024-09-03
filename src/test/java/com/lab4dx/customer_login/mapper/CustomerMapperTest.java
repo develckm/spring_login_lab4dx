@@ -34,7 +34,7 @@ class CustomerMapperTest {
 
     @Test
     void findById() {
-        Customer customer = customerMapper.findById(3);
-        System.out.println(customer); //있으면 중복된 아이디입니다 로그를 출력, 없으면 사용가능한 아이디 입니다.
+        Customer customer = customerMapper.findById(1);
+        System.out.println(customer.toString()); //있으면 중복된 아이디입니다 로그를 출력, 없으면 사용가능한 아이디 입니다.
     }
 }

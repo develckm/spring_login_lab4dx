@@ -1,0 +1,41 @@
+<div xmlns:layout="http://www.w3.org/1999/xhtml"
+     layout:decorate="~{layout}"
+     layout:fragment="content"
+       >
+    <h1>주문내역</h1>
+    <p>주문한 사람 번호 :
+        <strong th:text="${customer.customer_id}"></strong>
+    </p>
+    <p>주문한 사람 이름 :
+        <strong th:text="${customer.customer_name}"></strong>
+    </p>
+    <p>주문한 사람 이메일 :
+        <strong th:text="${customer.customer_email}"></strong>
+    </p>
+    <p>주문한 사람 폰번호 :
+        <strong th:text="${customer.customer_phone}"></strong>
+    </p>
+
+    <table class="table">
+        <thead>
+        <tr>
+            <th>주문번호</th>
+            <th>주문날짜</th>
+            <th>주문수량</th>
+            <th>상품번호</th>
+            <th>상품일름</th>
+            <th>상품가격</th>
+        </tr>
+        </thead>
+        <tbody>
+            <tr th:each="o : ${customer.orders}">
+                <td th:text="${o.order_id}"></td>
+                <td th:text="${o.order_date}"></td>
+                <td th:text="${o.quantity}"></td>
+                <td th:text="${o.product.product_id}"></td>
+                <td th:text="${o.product.product_name}"></td>
+                <td th:text="${o.product.product_price}"></td>
+            </tr>
+        </tbody>
+    </table>
+</div>
